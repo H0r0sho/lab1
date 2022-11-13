@@ -16,14 +16,15 @@ def get_previous_url(url):
 def get_date(url):
     data = requests.get(url).json()
     newdate=(data['Date'])
-    return newdate
+    shortdate = newdate[:10]
+    return shortdate
 def get_value(url):
     data = requests.get(url).json()
     newvalue = (data['Valute']['USD']['Value'])
     return newvalue
 with open(file_name, "w", encoding="utf-8", newline="") as fh:
     writer = csv.writer(fh, quoting=csv.QUOTE_ALL)
-    writer.writerow(["Дата", "Value"])
+    writer.writerow(["Дата, Курс"])
     while (url!='https://www.cbr-xml-daily.ru/archive/1992/06/30/daily_json.js'):
         value = get_value(url)
         date = get_date(url)
